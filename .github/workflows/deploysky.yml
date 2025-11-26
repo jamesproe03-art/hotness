@@ -1,0 +1,18 @@
+name: Deploy to Skynet
+on:
+  push:
+    branches: [ main ]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: "18"
+    - name: Upload to Skynet using npx
+      run: npx skynet-cli upload . --portal https://web3portal.com
+    - name: Show Skylink
+      run: echo "🚀 Deployment finished! Skylink will be shown above 👆"
