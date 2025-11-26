@@ -1,0 +1,21 @@
+name: Deploy to Skynet
+on:
+  push:
+    branches: [ main ]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+    
+    - name: Install Skynet CLI
+      run: |
+        curl -sSf https://skynet-cli.edgehosted.workers.dev/install.sh | sh
+        echo "$HOME/.local/bin" >> $GITHUB_PATH
+    
+    - name: Upload to Skynet
+      run: skynet-cli upload . --portal https://web3portal.com
+    
+    - name: Show Success Message
+      run: echo "🚀 Deployment finished! Check the step above for your Skylink."
